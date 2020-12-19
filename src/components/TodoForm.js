@@ -6,7 +6,9 @@ function TodoForm(props) {
     const inputRef = useRef(null)
 
     useEffect(() => {
-        inputRef.current.focus()
+        if(window.innerWidth >= 1350){
+            inputRef.current.focus()
+        }
     })
 
     const handleChange = e => {
