@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import TodoForm from './TodoForm'
-import TodoList from './TodoList'
-import { RiDeleteBin5Line } from 'react-icons/ri'
+// import TodoList from './TodoList'
+// import { RiDeleteBin5Line } from 'react-icons/ri'
 import { TiEdit } from 'react-icons/ti'
 import { MdDoneAll } from 'react-icons/md'
-import { FiSend } from 'react-icons/fi'
+// import { FiSend } from 'react-icons/fi'
 import { MdArrowBack } from 'react-icons/md'
 
 function Doing({todos, removeTodo, updateTodo, sendToDo, sendToDoing, sendToDone}) {
