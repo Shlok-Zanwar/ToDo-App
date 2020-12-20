@@ -3,7 +3,6 @@ import './App.css';
 import TodoList from './components/TodoList';
 
 function App() {
-  document.title = "To-do's Shlok Zanwar"
 
   return (
     <>
