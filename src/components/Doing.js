@@ -6,6 +6,7 @@ import { TiEdit } from 'react-icons/ti'
 import { MdDoneAll } from 'react-icons/md'
 // import { FiSend } from 'react-icons/fi'
 import { MdArrowBack } from 'react-icons/md'
+import { Tooltip } from '@material-ui/core'
 
 function Doing({todos, removeTodo, updateTodo, sendToDo, sendToDoing, sendToDone}) {
     const [edit, setEdit] = useState({
@@ -37,20 +38,31 @@ function Doing({todos, removeTodo, updateTodo, sendToDo, sendToDoing, sendToDone
                     {todo.text}
                 </div>
                 <div className="icons">
-                    <TiEdit 
-                        onClick={() => setEdit({ id: todo.id, value: todo.text, todoList:false, doing:true, done:false })}
-                        className='edit-icon'
-                    />
-                    <MdArrowBack
-                        onClick={() => sendToDo(todo.id)}
-                    />
-                    <MdDoneAll
-                        onClick={() => sendToDone(todo.id)}
-                    />
-                    {/* <RiDeleteBin5Line 
-                        onClick={() => removeTodo(todo.id)}
-                        
-                    /> */}
+                    <Tooltip title='Edit Text' placement='top' arrow>
+                        <span>
+                            <TiEdit 
+                                onClick={() => setEdit({ id: todo.id, value: todo.text, todoList:false, doing:true, done:false })}
+                                className='edit-icon'
+                            />
+                        </span>
+                    </Tooltip>
+
+                    <Tooltip title="Send to To-Do's" placement='top' arrow>
+                        <span>
+                            <MdArrowBack
+                                onClick={() => sendToDo(todo.id)}
+                            />
+                        </span>
+                    </Tooltip>
+
+                    <Tooltip title='Send to Done' placement='top' arrow>
+                        <span>
+                            <MdDoneAll
+                                onClick={() => sendToDone(todo.id)}
+                            />
+                        </span>
+                    </Tooltip>
+                    
                 </div>
             </div>
     ) : null )
