@@ -1,10 +1,7 @@
 import React, { useState } from 'react'
 import TodoForm from './TodoForm'
-// import TodoList from './TodoList'
 import { RiDeleteBin5Line } from 'react-icons/ri'
 import { TiEdit } from 'react-icons/ti'
-// import { MdDoneAll } from 'react-icons/md'
-// import { FiSend } from 'react-icons/fi'
 import { MdArrowBack } from 'react-icons/md'
 import { Tooltip } from '@material-ui/core'
 
@@ -38,7 +35,7 @@ function Done({todos, removeTodo, updateTodo, sendToDo, sendToDoing, sendToDone}
                     {todo.text}
                 </div>
                 <div className="icons">
-                    <Tooltip title='Edit Text' placement='top' arrow>
+                <Tooltip title='Edit Text' placement='top' arrow>
                         <span>
                             <TiEdit 
                                 onClick={() => setEdit({ id: todo.id, value: todo.text, todoList:false, doing:false, done:true })}

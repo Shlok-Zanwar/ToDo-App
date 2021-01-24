@@ -2,16 +2,11 @@ import React, {useState, useEffect} from 'react'
 import Todo from './Todo';
 import TodoForm from './TodoForm'
 import Doing from './Doing'
-// import Done from './Done'
 import SendDone from './SendDone';
 
 
 function TodoList() {
     const [todos, setTodos] = useState( localStorage.getItem('savedTodos') ? JSON.parse(localStorage.getItem('savedTodos')) : [])
-
-    window.addEventListener("storage", function () {
-        setTodos(JSON.parse(localStorage.getItem('savedTodos')))
-    }, false)
 
     const saveToLocalStorage = () => (
         localStorage.setItem('savedTodos', JSON.stringify(todos))
