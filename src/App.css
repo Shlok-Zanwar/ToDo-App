@@ -32,6 +32,12 @@ body {
   padding-bottom: 32px;
 }
 
+@media only screen and (max-width: 435px){
+  .todo-app {
+    min-width: 90vw;
+  }
+}
+
 @keyframes example {
   from {background-color: red;}
   to {background-color: yellow;}
