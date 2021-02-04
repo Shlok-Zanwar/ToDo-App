@@ -5,7 +5,7 @@ import { TiEdit } from 'react-icons/ti'
 import { MdArrowBack } from 'react-icons/md'
 import { Tooltip } from '@material-ui/core'
 
-function Done({todos, removeTodo, updateTodo, sendToDo, sendToDoing, sendToDone}) {
+function Done({todos, removeTodo, updateTodo, sendToDo, sendToDoing, sendToDone, handleDrag}) {
     const [edit, setEdit] = useState({
         id: null,
         value: '',
@@ -30,7 +30,7 @@ function Done({todos, removeTodo, updateTodo, sendToDo, sendToDoing, sendToDone}
     }
 
     return todos.map((todo, index) => todo.done ? (
-            <div className={'todo-row'} key={index} >
+            <div className={'todo-row'} key={index} draggable={true} onDragStart={(e) => handleDrag(e, todo.id)} >
                 <div key={todo.id}>
                     {todo.text}
                 </div>

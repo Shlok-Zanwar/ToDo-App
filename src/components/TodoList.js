@@ -8,13 +8,10 @@ import SendDone from './SendDone';
 function TodoList() {
     const [todos, setTodos] = useState( localStorage.getItem('savedTodos') ? JSON.parse(localStorage.getItem('savedTodos')) : [])
 
-    const saveToLocalStorage = () => (
-        localStorage.setItem('savedTodos', JSON.stringify(todos))
-    )
-
     useEffect(() => {
-        saveToLocalStorage();
-        // getNumOfDone();
+        // Saving data to local storage every time Todos are updated
+        localStorage.setItem('savedTodos', JSON.stringify(todos))
+
     }, [todos])
 
 
@@ -82,18 +79,35 @@ function TodoList() {
         setTodos(updatedTodos)
     }
 
+    const handleDrag = (e, id) => {
+        // console.log(id);
+        e.dataTransfer.setData("id", id);
+    }
+
+    // Have done this directly below in the tags (We need to use parseInt cause id is stored as string so to convert to int else can use '==' instead of '===')
+    // const handleDoingDrop = e => {
+    //     let id = e.dataTransfer.getData("id");
+    //     sendToDoing(parseInt(id));
+    // }
+
+    const allowDrop = (e) => {
+        e.preventDefault();
+    }
+
     return (
         <>
-        <div className="todo-app">
+        <div className="todo-app" onDrop={(e) => sendToDo(parseInt(e.dataTransfer.getData("id")))} onDragOver={(e) => allowDrop(e)}>
             <h2>To Do's</h2>
             <TodoForm onSubmit={addTodo}/>
-            <Todo todos={todos} removeTodo={removeTodo} updateTodo={updateTodo} sendToDo={sendToDo} sendToDoing={sendToDoing} sendToDone={sendToDone} />
+            <Todo todos={todos} removeTodo={removeTodo} updateTodo={updateTodo} sendToDo={sendToDo} sendToDoing={sendToDoing} sendToDone={sendToDone} handleDrag={handleDrag} />
         </div>
-        <div className="todo-app">
+        <div className="todo-app" onDrop={(e) => sendToDoing(parseInt(e.dataTransfer.getData("id")))} onDragOver={(e) => allowDrop(e)} >
             <h2>Doing ....</h2>
-            <Doing todos={todos} removeTodo={removeTodo} updateTodo={updateTodo} sendToDo={sendToDo} sendToDoing={sendToDoing} sendToDone={sendToDone} />
+            <Doing todos={todos} removeTodo={removeTodo} updateTodo={updateTodo} sendToDo={sendToDo} sendToDoing={sendToDoing} sendToDone={sendToDone} handleDrag={handleDrag} />
         </div>
-        <SendDone todos={todos} deleteAllDone={deleteAllDone} removeTodo={removeTodo} updateTodo={updateTodo} sendToDo={sendToDo} sendToDoing={sendToDoing} sendToDone={sendToDone}  />
+        <div className="todo-app" onDrop={(e) => sendToDone(parseInt(e.dataTransfer.getData("id")))} onDragOver={(e) => allowDrop(e)}>
+            <SendDone todos={todos} deleteAllDone={deleteAllDone} removeTodo={removeTodo} updateTodo={updateTodo} sendToDo={sendToDo} sendToDoing={sendToDoing} sendToDone={sendToDone}  handleDrag={handleDrag} />
+        </div>
         </>
     )
 

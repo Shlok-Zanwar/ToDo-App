@@ -1,19 +1,19 @@
 import React from 'react'
 import Done from './Done'
 
-function SendDone({todos, deleteAllDone, removeTodo, updateTodo, sendToDo, sendToDoing, sendToDone}) {
+function SendDone({todos, deleteAllDone, removeTodo, updateTodo, sendToDo, sendToDoing, sendToDone, handleDrag}) {
 
     return [...todos].filter(todo => todo.done).length < 2 ? (
-        <div className="todo-app">
+        <>
             <h2>Done !!!</h2>
-            <Done todos={todos} removeTodo={removeTodo} updateTodo={updateTodo} sendToDo={sendToDo} sendToDoing={sendToDoing} sendToDone={sendToDone} />
-        </div>
+            <Done todos={todos} removeTodo={removeTodo} updateTodo={updateTodo} sendToDo={sendToDo} sendToDoing={sendToDoing} sendToDone={sendToDone} handleDrag={handleDrag} />
+        </>
     ) : (
-        <div className="todo-app">
+        <>
             <h2>Done !!!</h2>
-            <Done todos={todos} removeTodo={removeTodo} updateTodo={updateTodo} sendToDo={sendToDo} sendToDoing={sendToDoing} sendToDone={sendToDone} />
+            <Done todos={todos} removeTodo={removeTodo} updateTodo={updateTodo} sendToDo={sendToDo} sendToDoing={sendToDoing} sendToDone={sendToDone} handleDrag={handleDrag} />
             <button className="delete-all-button" onClick={deleteAllDone}>Delete Done</button>
-        </div>
+        </>
     )
 }
 
