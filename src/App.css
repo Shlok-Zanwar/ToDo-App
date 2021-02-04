@@ -139,6 +139,12 @@ h2 {
   padding: 16px;
   border-radius: 5px;
   width: 90%;
+  cursor: grab;
+}
+
+.todo-row:hover {
+  transition: transform 0.5s;
+  transform: scale(1.01);
 }
 
 .todo-row:nth-child(4n + 1) {
