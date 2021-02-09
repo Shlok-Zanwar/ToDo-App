@@ -6,12 +6,12 @@ import SendDone from './SendDone';
 
 
 function TodoList() {
-    const [todos, setTodos] = useState( localStorage.getItem('savedTodos') ? JSON.parse(localStorage.getItem('savedTodos')) : [])
+    const [todos, setTodos] = useState( localStorage.getItem('savedTodos') ? JSON.parse(localStorage.getItem('savedTodos')) : []);
+    const [showDelete, setShowDelete] = useState(false);
 
     useEffect(() => {
         // Saving data to local storage every time Todos are updated
         localStorage.setItem('savedTodos', JSON.stringify(todos))
-
     }, [todos])
 
 
@@ -20,10 +20,11 @@ function TodoList() {
             return;
         }
 
-        const newTodos = [todo, ...todos];
+        const newTodos = [...todos, todo];
         setTodos(newTodos)
     }
     
+
     const updateTodo = (todoId, newValue) => {
         if(!newValue.text || /^\s*$/.test(newValue.text)) {
             return;
@@ -32,10 +33,14 @@ function TodoList() {
         setTodos(prev => prev.map(item => (item.id === todoId ? newValue : item)))
     }
 
+
     const removeTodo = id => {
         const removeArr = [...todos].filter(todo => todo.id !== id);
 
-        setTodos(removeArr)
+        // For setting todo, Cause useState hook normally not working for functions
+        setTodos(a => {
+            return setTodos(removeArr);
+        })
     }
 
     const sendToDo = id =>{
@@ -79,16 +84,57 @@ function TodoList() {
         setTodos(updatedTodos)
     }
 
-    const handleDrag = (e, id) => {
-        // console.log(id);
-        e.dataTransfer.setData("id", id);
+    const handleDrag = (e, todo) => {
+        e.dataTransfer.setData("todo", todo);
+        setShowDelete(true);
     }
 
-    // Have done this directly below in the tags (We need to use parseInt cause id is stored as string so to convert to int else can use '==' instead of '===')
-    // const handleDoingDrop = e => {
-    //     let id = e.dataTransfer.getData("id");
-    //     sendToDoing(parseInt(id));
-    // }
+
+    const handleToDoDrop = e => {
+        let id = JSON.parse(e.dataTransfer.getData("todo")).id;
+        sendToDo(id);
+        setShowDelete(false);
+    }
+
+
+    const handleDoingDrop = e => {
+        let id = JSON.parse(e.dataTransfer.getData("todo")).id;
+        sendToDoing((id));
+        setShowDelete(false);
+    }
+
+
+    const handleDoneDrop = e => {
+        let id = JSON.parse(e.dataTransfer.getData("todo")).id;
+        sendToDone((id));
+        setShowDelete(false);
+    }
+
+
+    const handlePositionChange = (e, onTodo) => {
+        var changeTodo = JSON.parse(e.dataTransfer.getData("todo"));
+        changeTodo.todoList = onTodo.todoList;
+        changeTodo.doing = onTodo.doing;
+        changeTodo.done = onTodo.done;
+
+        const newTodos = [];
+        var i;
+        for(i = 0; i < todos.length; i ++){
+            
+            if(todos[i].id !== changeTodo.id){
+                newTodos.push(todos[i]);
+            }
+            if(todos[i].id === onTodo.id){
+                newTodos.push(changeTodo);
+            }
+        }
+        setShowDelete(false);
+        // For setting todo, Cause useState hook normally not working for functions
+        setTodos(prev => {
+            return setTodos(newTodos);
+        });
+    }
+    
 
     const allowDrop = (e) => {
         e.preventDefault();
@@ -96,17 +142,48 @@ function TodoList() {
 
     return (
         <>
-        <div className="todo-app" onDrop={(e) => sendToDo(parseInt(e.dataTransfer.getData("id")))} onDragOver={(e) => allowDrop(e)}>
+        <div className="todo-app" onDrop={(e) => handleToDoDrop(e)} onDragOver={(e) => allowDrop(e)}>
             <h2>To Do's</h2>
             <TodoForm onSubmit={addTodo}/>
-            <Todo todos={todos} removeTodo={removeTodo} updateTodo={updateTodo} sendToDo={sendToDo} sendToDoing={sendToDoing} sendToDone={sendToDone} handleDrag={handleDrag} />
+            <Todo 
+                todos={todos} 
+                updateTodo={updateTodo} 
+                sendToDoing={sendToDoing} 
+                sendToDone={sendToDone} 
+                handleDrag={handleDrag} 
+                handlePositionChange={handlePositionChange} 
+                allowDrop={allowDrop} 
+                setShowDelete={setShowDelete}
+            />
         </div>
-        <div className="todo-app" onDrop={(e) => sendToDoing(parseInt(e.dataTransfer.getData("id")))} onDragOver={(e) => allowDrop(e)} >
+
+        <div className="todo-app" onDrop={(e) => handleDoingDrop(e)} onDragOver={(e) => allowDrop(e)} >
             <h2>Doing ....</h2>
-            <Doing todos={todos} removeTodo={removeTodo} updateTodo={updateTodo} sendToDo={sendToDo} sendToDoing={sendToDoing} sendToDone={sendToDone} handleDrag={handleDrag} />
+            <Doing 
+                todos={todos} 
+                updateTodo={updateTodo} 
+                sendToDo={sendToDo} 
+                sendToDone={sendToDone} 
+                handleDrag={handleDrag}
+                handlePositionChange={handlePositionChange} 
+                allowDrop={allowDrop} 
+                setShowDelete={setShowDelete}
+            />
         </div>
-        <div className="todo-app" onDrop={(e) => sendToDone(parseInt(e.dataTransfer.getData("id")))} onDragOver={(e) => allowDrop(e)}>
-            <SendDone todos={todos} deleteAllDone={deleteAllDone} removeTodo={removeTodo} updateTodo={updateTodo} sendToDo={sendToDo} sendToDoing={sendToDoing} sendToDone={sendToDone}  handleDrag={handleDrag} />
+
+        <div className="todo-app" onDrop={(e) => handleDoneDrop(e)} onDragOver={(e) => allowDrop(e)}>
+            <SendDone 
+                todos={todos} 
+                removeTodo={removeTodo} 
+                updateTodo={updateTodo} 
+                sendToDo={sendToDo} 
+                handleDrag={handleDrag} 
+                handlePositionChange={handlePositionChange} 
+                allowDrop={allowDrop}
+                deleteAllDone={deleteAllDone}  
+                showDelete={showDelete} 
+                setShowDelete={setShowDelete}
+            />
         </div>
         </>
     )
