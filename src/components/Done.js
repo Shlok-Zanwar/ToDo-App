@@ -37,6 +37,7 @@ function Done({todos, removeTodo, updateTodo, sendToDo, handleDrag, handlePositi
             onDragEnd={() => setShowDelete(false)}
             onDrop={(e) => handlePositionChange(e, todo)} 
             onDragOver={(e) => allowDrop(e)} 
+            onDoubleClick={() => setEdit({ id: todo.id, value: todo.text, todoList:false, doing:false, done:true })}
         >
             <div key={todo.id}>
                 {todo.text}
