@@ -171,7 +171,7 @@ function TodoList() {
             />
         </div>
 
-        <div className="todo-app" onDrop={(e) => handleDoneDrop(e)} onDragOver={(e) => allowDrop(e)}>
+        <div className="todo-app extra-padding" onDrop={(e) => handleDoneDrop(e)} onDragOver={(e) => allowDrop(e)}>
             <SendDone 
                 todos={todos} 
                 removeTodo={removeTodo} 
