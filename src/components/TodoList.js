@@ -2,7 +2,8 @@ import React, {useState, useEffect} from 'react'
 import Todo from './Todo';
 import TodoForm from './TodoForm'
 import Doing from './Doing'
-import SendDone from './SendDone';
+import DeleteButton from './DeleteButton';
+import Done from './Done';
 
 
 function TodoList() {
@@ -172,17 +173,23 @@ function TodoList() {
         </div>
 
         <div className="todo-app extra-padding" onDrop={(e) => handleDoneDrop(e)} onDragOver={(e) => allowDrop(e)}>
-            <SendDone 
+            <h2>Done !!!</h2>
+            <Done 
                 todos={todos} 
                 removeTodo={removeTodo} 
                 updateTodo={updateTodo} 
                 sendToDo={sendToDo} 
                 handleDrag={handleDrag} 
                 handlePositionChange={handlePositionChange} 
-                allowDrop={allowDrop}
-                deleteAllDone={deleteAllDone}  
-                showDelete={showDelete} 
+                allowDrop={allowDrop} 
                 setShowDelete={setShowDelete}
+            />
+            <DeleteButton 
+                todos={todos}
+                deleteAllDone={deleteAllDone} 
+                allowDrop={allowDrop} 
+                removeTodo={removeTodo} 
+                showDelete={showDelete} 
             />
         </div>
         </>
