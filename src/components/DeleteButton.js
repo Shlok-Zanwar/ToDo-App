@@ -2,7 +2,7 @@ import React from 'react'
 
 function DeleteButton({todos, deleteAllDone, allowDrop, removeTodo, showDelete}) {
     
-    return [...todos].filter(todo => todo.done).length > 1 || showDelete ? (
+    return [...todos].filter(todo => todo.list === "done").length > 1 || showDelete ? (
         <button 
             className="delete-all-button" 
             onClick={deleteAllDone} 

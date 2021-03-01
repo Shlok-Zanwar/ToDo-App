@@ -9,9 +9,8 @@ function Done({todos, removeTodo, updateTodo, sendToDo, handleDrag, handlePositi
     const [edit, setEdit] = useState({
         id: null,
         value: '',
-        todoList: false,
-        doing: false,
-        done: true,
+        list: "done",
+        class: ""
     })
 
     const submitUpdate = value =>{
@@ -19,9 +18,8 @@ function Done({todos, removeTodo, updateTodo, sendToDo, handleDrag, handlePositi
         setEdit({
             id: null,
             value: '',
-            todoList: false,
-            doing: false,
-            done: true,
+            list: "done",
+            class: ""
         })
     }
 
@@ -29,15 +27,15 @@ function Done({todos, removeTodo, updateTodo, sendToDo, handleDrag, handlePositi
         return <TodoForm edit={edit} onSubmit={submitUpdate} />
     }
 
-    return todos.map((todo, index) => todo.done ? (
-        <div className={'todo-row'} 
+    return todos.map((todo, index) => todo.list === "done"  ? (
+        <div className={todo.class} 
             key={index} 
             draggable={true} 
             onDragStart={(e) => handleDrag(e, JSON.stringify(todo))} 
             onDragEnd={() => setShowDelete(false)}
             onDrop={(e) => handlePositionChange(e, todo)} 
             onDragOver={(e) => allowDrop(e)} 
-            onDoubleClick={() => setEdit({ id: todo.id, value: todo.text, todoList:false, doing:false, done:true })}
+            onDoubleClick={() => setEdit({ id: todo.id, value: todo.text, list: "done", class:todo.class })}
         >
             <div key={todo.id}>
                 {todo.text}
@@ -46,7 +44,7 @@ function Done({todos, removeTodo, updateTodo, sendToDo, handleDrag, handlePositi
                 <Tooltip title='Edit Text' placement='top' arrow>
                     <span>
                         <TiEdit 
-                            onClick={() => setEdit({ id: todo.id, value: todo.text, todoList:false, doing:false, done:true })}
+                            onClick={() => setEdit({ id: todo.id, value: todo.text, list: "done", class:todo.class })}
                             className='edit-icon'
                         />
                     </span>

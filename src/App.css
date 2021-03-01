@@ -44,11 +44,6 @@ body {
   }
 }
 
-@keyframes example {
-  from {background-color: red;}
-  to {background-color: yellow;}
-}
-
 
 h1 {
   margin: 20px 0px 15px 0px;
@@ -67,6 +62,8 @@ h2 {
 
 .todo-form {
   margin-bottom: 32px;
+  margin-left: 4px;
+  margin-right: 4px;
 }
 
 .todo-input {
@@ -74,7 +71,7 @@ h2 {
   border-radius: 4px 0 0 4px;
   border: 2px solid #5d0cff;
   outline: none;
-  width: 68%;
+  width: 70%;
   background: transparent;
   color: #fff;
 }
@@ -102,11 +99,6 @@ h2 {
 }
 
 .todo-button.edit {
-  background: linear-gradient(
-    90deg,
-    rgba(20, 159, 255, 1) 0%,
-    rgba(17, 122, 255, 1) 100%
-  );
   padding: 16px 22px;
 }
 
@@ -131,6 +123,20 @@ h2 {
   text-transform: capitalize;
 }
 
+
+@media only screen and (max-width: 330px){
+  .todo-input{
+    border-radius: 4px;
+    margin-top: 4px;
+  }
+
+  .todo-button{
+    border-radius: 4px;
+    margin-top: 4px;
+  }
+}
+
+
 .todo-container {
   display: flex;
   flex-direction: row;
@@ -143,11 +149,6 @@ h2 {
   align-items: center;
   margin: 4px auto;
   color: #fff;
-  background: linear-gradient(
-    90deg,
-    rgba(255, 118, 20, 1) 0%,
-    rgba(255, 84, 17, 1) 100%
-  );
   word-break: break-all;
   padding: 16px;
   border-radius: 5px;
@@ -155,15 +156,36 @@ h2 {
   cursor: grab;
 }
 
-.todo-row:nth-child(4n + 1) {
+
+.todo-row.orange{
   background: linear-gradient(
     90deg,
-    rgba(93, 12, 255, 1) 0%,
-    rgba(155, 0, 250, 1) 100%
+    rgba(255, 118, 20, 1) 0%,
+    rgba(255, 84, 17, 1) 100%
   );
 }
 
-.todo-row:nth-child(4n + 2) {
+
+.todo-row.blue{
+  background: linear-gradient(
+    90deg,
+    rgba(20, 159, 255, 1) 0%,
+    rgba(17, 122, 255, 1) 100%
+  );
+  
+}
+
+
+.todo-row.red{
+  background: linear-gradient(
+    90deg,
+    rgb(255, 20, 79) 0%,
+    rgb(238, 44, 92) 100%
+  );
+}
+
+
+.todo-row.pink{
   background: linear-gradient(
     90deg,
     rgba(255, 12, 241, 1) 0%,
@@ -171,13 +193,24 @@ h2 {
   );
 }
 
-.todo-row:nth-child(4n + 3) {
+
+.todo-row.purple{
   background: linear-gradient(
     90deg,
-    rgba(20, 159, 255, 1) 0%,
-    rgba(17, 122, 255, 1) 100%
+    rgb(87, 5, 253) 0%,
+    rgb(129, 8, 204) 100%
   );
 }
+
+
+.todo-row.green{
+  background: linear-gradient(
+    90deg,
+    rgb(93, 187, 49) 0%,
+    rgb(84, 202, 29) 100%
+  );
+}
+
 
 .icons {
   display: flex;
@@ -193,4 +226,13 @@ h2 {
 
 .delete-icon {
   color: #fff;
+}
+
+
+.color-select-div{
+  margin-top: 15px;
+  width: 150px;
+  max-width: 150px;
+  cursor: pointer;
+  text-align: center;
 }
