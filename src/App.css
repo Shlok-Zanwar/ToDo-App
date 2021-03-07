@@ -18,6 +18,12 @@ body {
   );
 }
 
+
+.main-outer-div{
+  animation: fadeIn 0.5s 1;
+}
+
+
 .todo-app {
   position: relative;
   display: inline-table;

@@ -6,7 +6,7 @@ function App() {
 
   return (
     <>
-    <div>
+    <div className="main-outer-div">
     <h1>To-Do App - Shlok Zanwar</h1>
       <TodoList />
     </div>
