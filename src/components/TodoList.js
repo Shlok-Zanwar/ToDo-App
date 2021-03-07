@@ -25,7 +25,8 @@ function TodoList() {
                 "todo-row orange", 
                 "todo-row pink", 
                 "todo-row purple",
-                "todo-row red"
+                "todo-row red",
+                "todo-row green"
             ];
             var newTodos = [];
             var todoType = "";
@@ -49,7 +50,7 @@ function TodoList() {
                 }
                 newTodos.push(updateTodo);
             });
-            alert(newTodos);
+            
             setTodos(newTodos);
             localStorage.setItem("update_version", "v1"); 
         }
